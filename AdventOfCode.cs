@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Advent_Of_Code_2022
 {
@@ -16,8 +17,79 @@ namespace Advent_Of_Code_2022
 
             //Day3Star1();
             //Day3Star2();
+
+            //Day4Star1();
+            Day4Star2();
         }
 
+        #region Day Four
+        static void Day4Star1()
+        {
+            StreamReader reader = new StreamReader("../../../AdventData2022.txt");
+            string line;
+
+            int total = 0;
+            while ((line = reader.ReadLine()) != null)
+            {
+                string[] splitInput = line.Split(",");
+
+                int range1Low = int.Parse(splitInput[0].Split("-")[0]);
+                int range1High = int.Parse(splitInput[0].Split("-")[1]);
+                int range2Low = int.Parse(splitInput[1].Split("-")[0]);
+                int range2High = int.Parse(splitInput[1].Split("-")[1]);
+                if(range1Low >= range2Low && range1High <= range2High){total++;}
+                else if(range2Low >= range1Low && range2High <= range1High){total++;}
+            }
+
+            Console.WriteLine(total);
+        }
+
+        static void Day4Star2()
+        {
+            StreamReader reader = new StreamReader("../../../AdventData2022.txt");
+            string line;
+
+            int total = 0;
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                string[] splitInput = line.Split(",");
+
+                int range1Low = int.Parse(splitInput[0].Split("-")[0]);
+                int range1High = int.Parse(splitInput[0].Split("-")[1]);
+                int range2Low = int.Parse(splitInput[1].Split("-")[0]);
+                int range2High = int.Parse(splitInput[1].Split("-")[1]);
+
+                List<int> range1 = Enumerable.Range(range1Low,range1High - range1Low + 1).ToList();
+                List<int> range2 = Enumerable.Range(range2Low, range2High - range2Low + 1).ToList();
+
+                bool isOverlapping = false;
+                foreach(int num in range1)
+                {
+                    if (range2.Contains(num))
+                    {
+                        total++;
+                        isOverlapping = true;
+                        break;
+                    }
+                }
+
+                if (!isOverlapping)
+                {
+                    foreach (int num in range2)
+                    {
+                        if (range1.Contains(num))
+                        {
+                            total++;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine(total);
+        }
+        #endregion
         #region Day Three
         static void Day3Star1()
         {
@@ -36,7 +108,7 @@ namespace Advent_Of_Code_2022
                     if (lasthalf.Contains(letter)){key = letter;}
                 }
 
-                if(key > 95){sum += key - 96;}
+                if(key > 96){sum += key - 96;}
                 else{sum += key - 38;}
             }
 
@@ -60,7 +132,7 @@ namespace Advent_Of_Code_2022
                     if (line2.Contains(letter) && line3.Contains(letter)){key = letter;}
                 }
 
-                if (key > 95){sum += key - 96;}
+                if (key > 96){sum += key - 96;}
                 else{sum += key - 38;}
             }
 
