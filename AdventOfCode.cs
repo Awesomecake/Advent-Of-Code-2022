@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Advent_Of_Code_2022
 {
@@ -18,7 +19,7 @@ namespace Advent_Of_Code_2022
             //Day3Star1();
             //Day3Star2();
 
-            //Day4Star1();
+            Day4Star1();
             Day4Star2();
         }
 
@@ -31,17 +32,12 @@ namespace Advent_Of_Code_2022
             int total = 0;
             while ((line = reader.ReadLine()) != null)
             {
-                string[] splitInput = line.Split(",");
+                int[] input = Array.ConvertAll(Regex.Split(line, @"\D"), str => int.Parse(str));
 
-                int range1Low = int.Parse(splitInput[0].Split("-")[0]);
-                int range1High = int.Parse(splitInput[0].Split("-")[1]);
-                int range2Low = int.Parse(splitInput[1].Split("-")[0]);
-                int range2High = int.Parse(splitInput[1].Split("-")[1]);
-                if(range1Low >= range2Low && range1High <= range2High){total++;}
-                else if(range2Low >= range1Low && range2High <= range1High){total++;}
+                if((input[0] >= input[2] && input[1] <= input[3]) || (input[2] >= input[0] && input[3] <= input[1])){total++;} //If one range is entirely within the other, total++
             }
 
-            Console.WriteLine(total);
+            Console.WriteLine($"Day 4 Star 1 Answer: {total}");
         }
 
         static void Day4Star2()
@@ -53,41 +49,13 @@ namespace Advent_Of_Code_2022
 
             while ((line = reader.ReadLine()) != null)
             {
-                string[] splitInput = line.Split(",");
+                int[] input = Array.ConvertAll(Regex.Split(line, @"\D"), str => int.Parse(str));
 
-                int range1Low = int.Parse(splitInput[0].Split("-")[0]);
-                int range1High = int.Parse(splitInput[0].Split("-")[1]);
-                int range2Low = int.Parse(splitInput[1].Split("-")[0]);
-                int range2High = int.Parse(splitInput[1].Split("-")[1]);
-
-                List<int> range1 = Enumerable.Range(range1Low,range1High - range1Low + 1).ToList();
-                List<int> range2 = Enumerable.Range(range2Low, range2High - range2Low + 1).ToList();
-
-                bool isOverlapping = false;
-                foreach(int num in range1)
-                {
-                    if (range2.Contains(num))
-                    {
-                        total++;
-                        isOverlapping = true;
-                        break;
-                    }
-                }
-
-                if (!isOverlapping)
-                {
-                    foreach (int num in range2)
-                    {
-                        if (range1.Contains(num))
-                        {
-                            total++;
-                            break;
-                        }
-                    }
-                }
+                if((input[1] <= input[3] && input[1] >= input[2]) || (input[0] <= input[3] && input[0] >= input[2])) { total++; } //If the ends of range1 are within range2, total++
+                else if ((input[3] <= input[1] && input[3] >= input[0]) || (input[2] <= input[1] && input[2] >= input[0])) { total++; } //If the ends of range2 are within range1, total++
             }
 
-            Console.WriteLine(total);
+            Console.WriteLine($"Day 4 Star 2 Answer: {total}");
         }
         #endregion
         #region Day Three
@@ -105,7 +73,7 @@ namespace Advent_Of_Code_2022
                 char key = ' ';
                 foreach(char letter in firsthalf)
                 {
-                    if (lasthalf.Contains(letter)){key = letter;}
+                    if (lasthalf.Contains(letter)){key = letter; break; }
                 }
 
                 if(key > 96){sum += key - 96;}
@@ -129,7 +97,7 @@ namespace Advent_Of_Code_2022
                 char key = ' ';
                 foreach (char letter in line)
                 {
-                    if (line2.Contains(letter) && line3.Contains(letter)){key = letter;}
+                    if (line2.Contains(letter) && line3.Contains(letter)){key = letter; break; }
                 }
 
                 if (key > 96){sum += key - 96;}
@@ -197,10 +165,7 @@ namespace Advent_Of_Code_2022
 
             while ((line = reader.ReadLine()) != null)
             {
-                if(line != "")
-                {
-                    current += int.Parse(line);
-                }
+                if(line != ""){current += int.Parse(line);}
                 else
                 {
                     if(current > max)
@@ -224,10 +189,7 @@ namespace Advent_Of_Code_2022
 
             while ((line = reader.ReadLine()) != null)
             {
-                if (line != "")
-                {
-                    current += int.Parse(line);
-                }
+                if (line != ""){current += int.Parse(line);}
                 else
                 {
                     sums.Add(current);
