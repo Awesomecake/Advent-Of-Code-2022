@@ -19,10 +19,102 @@ namespace Advent_Of_Code_2022
             //Day3Star1();
             //Day3Star2();
 
-            Day4Star1();
-            Day4Star2();
+            //Day4Star1();
+            //Day4Star2();
+
+            Day5Star1();
+            Day5Star2();
         }
 
+        #region Day Five
+        static void Day5Star1()
+        {
+            StreamReader reader = new StreamReader("../../../AdventData2022.txt");
+            string line = reader.ReadLine();
+
+            List<List<char>> list = new List<List<char>>();
+            for(int i = 0; i < (line.Length+1)/4; i++){list.Add(new List<char>());}
+
+            do
+            {
+                for (int i = 0; i < (line.Length+1)/4; i++)
+                {
+                    if(line.Substring(i * 4 + 1, 1) != " ")
+                    {
+                        list[i].Add(line.Substring(i * 4 + 1, 1)[0]);
+                    }
+                }
+            } while ((line = reader.ReadLine()) != null && line[1] != '1');
+
+
+            reader.ReadLine();
+            for (int i = 0; i < list.Count; i++){list[i].Reverse();}
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                string[] split = line.Split(" ");
+
+                int moves = int.Parse(split[1]);
+                int loc1 = int.Parse(split[3])-1;
+                int loc2 = int.Parse(split[5])-1;
+
+                for (int i = 0; i < moves; i++)
+                {
+                    char item = list[loc1][list[loc1].Count-1];
+
+                    list[loc1].RemoveAt(list[loc1].Count - 1);
+                    list[loc2].Insert(list[loc2].Count,item);
+                }
+            }
+
+            foreach (List<char> item in list){Console.Write(item[item.Count - 1]);}
+            Console.WriteLine();
+        }
+
+        static void Day5Star2()
+        {
+            StreamReader reader = new StreamReader("../../../AdventData2022.txt");
+            string line = reader.ReadLine();
+
+            List<List<char>> list = new List<List<char>>();
+            for (int i = 0; i < (line.Length + 1) / 4; i++){list.Add(new List<char>());}
+
+            do
+            {
+                for (int i = 0; i < (line.Length + 1) / 4; i++)
+                {
+                    if (line.Substring(i * 4 + 1, 1) != " ")
+                    {
+                        list[i].Add(line.Substring(i * 4 + 1, 1)[0]);
+                    }
+                }
+            } while ((line = reader.ReadLine()) != null && line[1] != '1');
+
+
+            reader.ReadLine();
+            for (int i = 0; i < list.Count; i++){list[i].Reverse();}
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                string[] split = line.Split(" ");
+
+                int moves = int.Parse(split[1]);
+                int loc1 = int.Parse(split[3]) - 1;
+                int loc2 = int.Parse(split[5]) - 1;
+
+                for (int i = 0; i < moves; i++)
+                {
+                    char item = list[loc1][list[loc1].Count - 1 - (moves-1-i)];
+
+                    list[loc1].RemoveAt(list[loc1].Count - 1 - (moves-1 - i));
+                    list[loc2].Insert(list[loc2].Count, item);
+                }
+            }
+
+            foreach (List<char> item in list){Console.Write(item[item.Count - 1]);}
+            Console.WriteLine();
+        }
+        #endregion
         #region Day Four
         static void Day4Star1()
         {
@@ -32,7 +124,7 @@ namespace Advent_Of_Code_2022
             int total = 0;
             while ((line = reader.ReadLine()) != null)
             {
-                int[] input = Array.ConvertAll(Regex.Split(line, @"\D"), str => int.Parse(str));
+                int[] input = Array.ConvertAll(Regex.Split(line, @"\D"), int.Parse);
 
                 if((input[0] >= input[2] && input[1] <= input[3]) || (input[2] >= input[0] && input[3] <= input[1])){total++;} //If one range is entirely within the other, total++
             }
@@ -49,7 +141,7 @@ namespace Advent_Of_Code_2022
 
             while ((line = reader.ReadLine()) != null)
             {
-                int[] input = Array.ConvertAll(Regex.Split(line, @"\D"), str => int.Parse(str));
+                int[] input = Array.ConvertAll(Regex.Split(line, @"\D"), int.Parse);
 
                 if((input[1] <= input[3] && input[1] >= input[2]) || (input[0] <= input[3] && input[0] >= input[2])) { total++; } //If the ends of range1 are within range2, total++
                 else if ((input[3] <= input[1] && input[3] >= input[0]) || (input[2] <= input[1] && input[2] >= input[0])) { total++; } //If the ends of range2 are within range1, total++
