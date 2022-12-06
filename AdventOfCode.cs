@@ -22,10 +22,58 @@ namespace Advent_Of_Code_2022
             //Day4Star1();
             //Day4Star2();
 
-            Day5Star1();
-            Day5Star2();
+            //Day5Star1();
+            //Day5Star2();
+
+            //Day6Star1();
+            Day6Star2();
         }
 
+        #region Day Six
+        static void Day6Star1()
+        {
+            StreamReader reader = new StreamReader("../../../AdventData2022.txt");
+            string line = reader.ReadLine();
+
+            for (int i = 0; i < line.Length-3; i++)
+            {
+                string subline = line.Substring(i, 4);
+
+                if (subline.IndexOf(subline[0]) == 0 && subline.IndexOf(subline[1]) == 1 && subline.IndexOf(subline[2]) == 2 && subline.IndexOf(subline[3]) == 3)
+                {
+                    Console.WriteLine(i + 4);
+                    break;
+                }
+            }
+        }
+
+        static void Day6Star2()
+        {
+            StreamReader reader = new StreamReader("../../../AdventData2022.txt");
+            string line = reader.ReadLine();
+
+            for (int i = 0; i < line.Length - 13; i++)
+            {
+                string subline = line.Substring(i, 14);
+
+                bool found = true;
+                for (int j = 0; j < subline.Length; j++)
+                {
+                    if (subline.IndexOf(subline[j]) != j)
+                    {
+                        found = false;
+                        break;
+                    }
+                }
+
+                if (found)
+                {
+                    Console.WriteLine(i+14);
+                    break;
+                }
+            }
+        }
+        #endregion
         #region Day Five
         static void Day5Star1()
         {
@@ -39,24 +87,18 @@ namespace Advent_Of_Code_2022
             {
                 for (int i = 0; i < (line.Length+1)/4; i++)
                 {
-                    if(line.Substring(i * 4 + 1, 1) != " ")
-                    {
-                        list[i].Add(line.Substring(i * 4 + 1, 1)[0]);
-                    }
+                    if(line.Substring(i * 4 + 1, 1) != " "){list[i].Insert(0,line.Substring(i * 4 + 1, 1)[0]);}
                 }
             } while ((line = reader.ReadLine()) != null && line[1] != '1');
-
-
             reader.ReadLine();
-            for (int i = 0; i < list.Count; i++){list[i].Reverse();}
 
             while ((line = reader.ReadLine()) != null)
             {
-                string[] split = line.Split(" ");
+                string[] split = Array.FindAll(Regex.Split(line, @"\D"), c => c != "");
 
-                int moves = int.Parse(split[1]);
-                int loc1 = int.Parse(split[3])-1;
-                int loc2 = int.Parse(split[5])-1;
+                int moves = int.Parse(split[0]);
+                int loc1 = int.Parse(split[1]) - 1;
+                int loc2 = int.Parse(split[2]) - 1;
 
                 for (int i = 0; i < moves; i++)
                 {
@@ -83,24 +125,18 @@ namespace Advent_Of_Code_2022
             {
                 for (int i = 0; i < (line.Length + 1) / 4; i++)
                 {
-                    if (line.Substring(i * 4 + 1, 1) != " ")
-                    {
-                        list[i].Add(line.Substring(i * 4 + 1, 1)[0]);
-                    }
+                    if (line.Substring(i * 4 + 1, 1) != " "){list[i].Insert(0,line.Substring(i * 4 + 1, 1)[0]);}
                 }
             } while ((line = reader.ReadLine()) != null && line[1] != '1');
-
-
             reader.ReadLine();
-            for (int i = 0; i < list.Count; i++){list[i].Reverse();}
 
             while ((line = reader.ReadLine()) != null)
             {
-                string[] split = line.Split(" ");
+                string[] split = Array.FindAll(Regex.Split(line, @"\D"), c => c != "");
 
-                int moves = int.Parse(split[1]);
-                int loc1 = int.Parse(split[3]) - 1;
-                int loc2 = int.Parse(split[5]) - 1;
+                int moves = int.Parse(split[0]);
+                int loc1 = int.Parse(split[1]) - 1;
+                int loc2 = int.Parse(split[2]) - 1;
 
                 for (int i = 0; i < moves; i++)
                 {
