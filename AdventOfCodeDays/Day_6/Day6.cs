@@ -50,7 +50,7 @@ namespace Advent_Of_Code_2022
 
                 if (found)
                 {
-                    Console.WriteLine($"Day 6 Star 2 Answer: {i + 14}");
+                    Console.WriteLine($"Day 6 Star 2 Answer: {i + 14}\n");
                     break;
                 }
             }
