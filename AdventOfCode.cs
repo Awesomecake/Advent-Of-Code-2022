@@ -30,8 +30,11 @@ namespace Advent_Of_Code_2022
             //Day6.Star1();
             //Day6.Star2();
 
-            Day7.Star1();
-            Day7.Star2();
+            //Day7.Star1();
+            //Day7.Star2();
+
+            Day8.Star1();
+            Day8.Star2();
         }
     }
 }
