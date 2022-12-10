@@ -89,7 +89,7 @@ namespace Advent_Of_Code_2022
             int target = 30000000 - (70000000 - sums["/ "]);
             foreach (string key in sums.Keys){if (sums[key] >= target && sums[key] < min){min = sums[key];}}
 
-            Console.WriteLine($"Day 7 Star 2 Answer: {min}");
+            Console.WriteLine($"Day 7 Star 2 Answer: {min}\n");
             reader.Close();
         }
     }
