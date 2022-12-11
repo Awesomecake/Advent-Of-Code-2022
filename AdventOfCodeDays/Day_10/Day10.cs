@@ -18,9 +18,7 @@ namespace Advent_Of_Code_2022
 
             int cycle = 0;
             int x = 1;
-
             Dictionary<int,int> cycles = new Dictionary<int,int>();
-
             while ((line = reader.ReadLine()) != null)
             {
                 if(line == "noop")
@@ -40,7 +38,7 @@ namespace Advent_Of_Code_2022
 
             int sum = 0;
             for (int i = 20; i <= 240; i += 40){sum += cycles[i]*i;}
-            Console.WriteLine(sum);
+            Console.WriteLine($"Day 10 Star 1 Answer : {sum}");
             reader.Close();
         }
 
@@ -55,42 +53,32 @@ namespace Advent_Of_Code_2022
             List<char> output = new List<char>();
             char display = Char.ConvertFromUtf32(0x00002588)[0];
             output.Add(display); output.Add(display); output.Add(display);
-            for (int i = 0; i < 237; i++){output.Add('.');}
+            for (int i = 0; i < 38; i++){output.Add(' ');}
 
+            Console.WriteLine("Day 10 Star 2 Answer: ");
             while ((line = reader.ReadLine()) != null)
             {
                 if (line == "noop")
                 {
-                    cycle++;
-                    if(output[(cycle - 1) % 40] == display){Console.ForegroundColor = ConsoleColor.White;}
-                    else{ Console.ForegroundColor = ConsoleColor.Black; }
-                    Console.Write(output[(cycle - 1) % 40]);
+                    Console.Write(output[(++cycle - 1) % 40]); 
+                    if (cycle % 40 == 0) { Console.WriteLine(); }
                 }
                 if (line.Contains("addx"))
                 {
-                    cycle++;
-                    if (output[(cycle - 1) % 40] == display) { Console.ForegroundColor = ConsoleColor.White; }
-                    else { Console.ForegroundColor = ConsoleColor.Black; }
-                    Console.Write(output[(cycle-1)%40]);
+                    Console.Write(output[(++cycle - 1) % 40]); 
+                    if (cycle % 40 == 0) { Console.WriteLine(); }
 
-                    cycle++;
-                    if (output[(cycle - 1) % 40] == display) { Console.ForegroundColor = ConsoleColor.White; }
-                    else { Console.ForegroundColor = ConsoleColor.Black; }
-                    Console.Write(output[(cycle - 1) % 40]);
+                    Console.Write(output[(++cycle - 1) % 40]); 
+                    if (cycle % 40 == 0) { Console.WriteLine(); }
 
-                    if (Enumerable.Range(0, 239).Contains(x - 1)) { output[x - 1] = '.'; }
-                    if (Enumerable.Range(0, 239).Contains(x)) { output[x] = '.'; }
-                    if (Enumerable.Range(0, 239).Contains(x + 1)) { output[x + 1] = '.'; }
-
+                    if (Enumerable.Range(1, 40).Contains(x)) { output[x - 1] = ' '; output[x] = ' '; output[x + 1] = ' '; }
                     x += int.Parse(line.Split(" ")[1]);
-
-                    if (Enumerable.Range(0, 239).Contains(x - 1)) { output[x - 1] = display; }
-                    if (Enumerable.Range(0, 239).Contains(x)) { output[x] = display; }
-                    if (Enumerable.Range(0, 239).Contains(x + 1)) { output[x + 1] = display; }
+                    if (Enumerable.Range(0, 40).Contains(x - 1)) { output[x - 1] = display; }
+                    if (Enumerable.Range(0, 40).Contains(x)) { output[x] = display; }
+                    if (Enumerable.Range(0, 40).Contains(x + 1)) { output[x + 1] = display; }
                 }
             }
-
-            Console.SetWindowSize(39, 40);
+            Console.WriteLine();
             reader.Close();
         }
     }

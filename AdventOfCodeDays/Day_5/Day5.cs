@@ -84,7 +84,7 @@ namespace Advent_Of_Code_2022
                 }
             }
 
-            Console.Write("Day 5 Star 1 Answer: ");
+            Console.Write("Day 5 Star 2 Answer: ");
             foreach (List<char> item in list) { Console.Write(item[item.Count - 1]); }
             Console.WriteLine("\n");
             reader.Close();
