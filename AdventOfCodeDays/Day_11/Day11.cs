@@ -151,7 +151,7 @@ namespace Advent_Of_Code_2022
             }
 
             List<long> inspects = monkeys.Select(x => x.numInspects).OrderByDescending(x => x).ToList();
-            Console.WriteLine($"Day 11 Star 2 Answer: {inspects[0] * inspects[1]}");
+            Console.WriteLine($"Day 11 Star 2 Answer: {inspects[0] * inspects[1]}\n");
             reader.Close();
         }
 
